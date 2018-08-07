@@ -2,12 +2,19 @@
 #include <stdlib.h>
 #include <string.h>
 
-void Usage(char * filename);
-int Search_in_File(char * fname, char * str);
+void createNewDB();
+void showAll();
+void Usage(char *filename);
+int Search_in_File(char *fname, char *str);
 
 // MAIN
-int main(int argc, char * argv[]) {
+int main(int argc, char *argv[]) {
 	int result, errno;
+
+	if (argc == 1) {
+		showAll();
+		exit(1);
+	}
 
 	if (argc < 3 || argc > 3) {
 		Usage(argv[0]);
@@ -26,11 +33,11 @@ int main(int argc, char * argv[]) {
 }
 
 // FUNCTIONS
-void Usage(char * filename) {
+void Usage(char *filename) {
 	printf("Usage: %s <file> <string>\n", filename);
 }
 
-int Search_in_File(char * fname, char * str) {
+int Search_in_File(char *fname, char *str) {
 	FILE *fp;
 	int line_num = 1;
 	int find_result = 0;
@@ -62,4 +69,46 @@ int Search_in_File(char * fname, char * str) {
 		fclose(fp);
 	}
 	return (0);
+}
+
+// Create new DB file.
+void createNewDB() {
+	FILE *fp;
+	fp = fopen("db", "w");
+	fclose(fp);
+	printf("The new DB file has been created.\n");
+}
+
+// Show all entries.
+void showAll() {
+	#define CHUNK 1024 /* read 1024 bytes at a time */
+	char buf[CHUNK];
+	FILE *file;
+	size_t nread;
+
+	file = fopen("db", "r");
+	if (file) {
+		printf("-----------\n");
+		printf("Your notes:\n");
+		printf("-----------\n");
+
+		while ((nread = fread(buf, 1, sizeof buf, file)) > 0) {
+			fwrite(buf, 1, nread, stdout);
+		}
+
+		if (ferror(file)) {
+			printf("Error! Opening file.\n");
+			exit(1);
+		}
+
+		fclose(file);
+	}
+}
+
+// Show the entry.
+void showEntry() {}
+
+// Remove the entry.
+void removeEntry(char *id) {
+	printf("%s entry has been removed.\n", id);
 }
