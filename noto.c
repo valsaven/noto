@@ -17,7 +17,6 @@ int main(int argc, char *argv[]) {
 	}
 
 	if (argc < 3 || argc > 3) {
-		Usage(argv[0]);
 		exit(1);
 	}
 
@@ -102,6 +101,8 @@ void showAll() {
 		}
 
 		fclose(file);
+	} else { // Can't open file
+		createNewDB();
 	}
 }
 
