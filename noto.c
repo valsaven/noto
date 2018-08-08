@@ -15,9 +15,23 @@ int main(int argc, char *argv[]) {
 		showAll();
 		exit(1);
 	} else if (argc == 2) { // hash or -r flag without value
+		// Is it -r flag?
 		int hasRemoveFlag = strcmp(argv[1], "-r") == 0;
 		if (hasRemoveFlag) {
-			printf("To delete an entry, specify its hash.\nExample:\nnoto -r #abcdef\n");
+			printf("To delete an entry, specify its hash.\nExample:\nnoto -r @abcdef\n");
+		} else {
+			// Is it hash?
+			if (strlen(argv[1]) != 7) {
+				printf(">>> ERROR: Wrong hash!\n");
+				return (-1);
+			} else {
+				printf("Data: %s\n", argv[1]);
+				if (argv[1][0] == '#' || argv[1][0] == '@') { // TODO: Remove # support
+					printf(">>> Has has %s\n", argv[1]);
+				} else {
+					printf(">>> No hash here...\n");
+				}
+			}
 		}
 	}
 
@@ -91,6 +105,7 @@ void showAll() {
 	size_t nread;
 
 	file = fopen("db", "r");
+
 	if (file) {
 		printf("-----------\n");
 		printf("Your notes:\n");
