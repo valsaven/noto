@@ -14,6 +14,11 @@ int main(int argc, char *argv[]) {
 	if (argc == 1) {
 		showAll();
 		exit(1);
+	} else if (argc == 2) { // hash or -r flag without value
+		int hasRemoveFlag = strcmp(argv[1], "-r") == 0;
+		if (hasRemoveFlag) {
+			printf("To delete an entry, specify its hash.\nExample:\nnoto -r #abcdef\n");
+		}
 	}
 
 	if (argc < 3 || argc > 3) {
