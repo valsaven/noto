@@ -4,7 +4,6 @@
 
 void createNewDB();
 void showAll();
-void Usage(char *filename);
 int Search_in_File(char *fname, char *str);
 
 // MAIN
@@ -51,10 +50,6 @@ int main(int argc, char *argv[]) {
 }
 
 // FUNCTIONS
-void Usage(char *filename) {
-	printf("Usage: %s <file> <string>\n", filename);
-}
-
 int Search_in_File(char *fname, char *str) {
 	FILE *fp;
 	int line_num = 1;
