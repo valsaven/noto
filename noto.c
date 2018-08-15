@@ -1,12 +1,8 @@
+#include "functions.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-void createNewDB();
-void showAll();
-int Search_in_File(char *fname, char *str);
-
-// MAIN
 int main(int argc, char *argv[]) {
 	int result, errno;
 
@@ -22,15 +18,33 @@ int main(int argc, char *argv[]) {
 			// Is it hash?
 			if (strlen(argv[1]) != 7) {
 				printf(">>> ERROR: Wrong hash!\n");
+				// createEntry();
 				return (-1);
 			} else {
-				printf("Data: %s\n", argv[1]);
 				if (argv[1][0] == '#' || argv[1][0] == '@') { // TODO: Remove # support
-					printf(">>> Has has %s\n", argv[1]);
+					// Search and print the entry
+					showEntry(argv[1]);
 				} else {
 					printf(">>> No hash here...\n");
 				}
 			}
+		}
+	} else if (argc == 3) { // 2 args (-r @abcdef)
+		printf(">>>>>>>>>>> 3");
+		int hasRemoveFlag = strcmp(argv[1], "-r") == 0;
+		if (hasRemoveFlag) { // Has -r flag
+			if (argv[2][0] == '@') { // TODO: Remove # support
+					printf(">>> Hash is %s\n", argv[2]);
+					// Search and remove the entry
+					removeEntry(argv[2]);
+				} else {
+					printf(">>> ERROR: Wrong arguments!\n");
+					return (-1);
+				}
+			return (0);
+		} else {
+			printf(">>> ERROR: Wrong arguments!\n");
+			return (-1);
 		}
 	}
 
@@ -40,91 +54,11 @@ int main(int argc, char *argv[]) {
 
 	system("clear");
 
-	result = Search_in_File(argv[1], argv[2]);
-	if (result == -1) {
-		perror("Error");
-		printf("Error number = %d\n", errno);
-		exit(1);
-	}
+	// result = Search_in_File(argv[1], argv[2]);
+	// if (result == -1) {
+	// 	perror("Error");
+	// 	printf("Error number = %d\n", errno);
+	// 	exit(1);
+	// }
 	return (0);
-}
-
-// FUNCTIONS
-int Search_in_File(char *fname, char *str) {
-	FILE *fp;
-	int line_num = 1;
-	int find_result = 0;
-	char temp[512];
-
-	if ((fp = fopen(fname, "r")) == NULL) {
-		fp = fopen("db", "w");
-		fclose(fp);
-		printf("The new DB file has been created.");
-		return (0);
-	}
-
-	while (fgets(temp, 512, fp) != NULL) {
-		if ((strstr(temp, str)) != NULL) {
-			printf("%s\n", temp);
-			find_result++;
-		}
-		line_num++;
-	}
-
-	printf("> Search returned %d results < \n", line_num - 1);
-
-	if (find_result == 0) {
-		printf("\nSorry, couldn't find a match.\n");
-	}
-
-	// Close the file if still open.
-	if (fp) {
-		fclose(fp);
-	}
-	return (0);
-}
-
-// Create new DB file.
-void createNewDB() {
-	FILE *fp;
-	fp = fopen("db", "w");
-	fclose(fp);
-	printf("The new DB file has been created.\n");
-}
-
-// Show all entries.
-void showAll() {
-	#define CHUNK 1024 /* read 1024 bytes at a time */
-	char buf[CHUNK];
-	FILE *file;
-	size_t nread;
-
-	file = fopen("db", "r");
-
-	if (file) {
-		printf("-----------\n");
-		printf("Your notes:\n");
-		printf("-----------\n");
-
-		while ((nread = fread(buf, 1, sizeof buf, file)) > 0) {
-			fwrite(buf, 1, nread, stdout);
-		}
-
-		if (ferror(file)) {
-			printf("Error! Opening file.\n");
-			exit(1);
-		}
-
-		fclose(file);
-	} else { // Can't open file
-		createNewDB();
-	}
-}
-
-// Show the entry.
-void showEntry() {}
-
-// Remove the entry.
-void removeEntry(char *id) {
-	printf("%s entry has been removed.\n", id);
 }
