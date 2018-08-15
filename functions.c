@@ -21,9 +21,9 @@ void showAll() {
 	file = fopen("db", "r");
 
 	if (file) {
-		printf("-----------\n");
-		printf("Your notes:\n");
-		printf("-----------\n");
+		printf("\n----------------\n");
+		printf("|  Your notes  |\n");
+		printf("----------------\n\n");
 
 		while ((nread = fread(buf, 1, sizeof buf, file)) > 0) {
 			fwrite(buf, 1, nread, stdout);
