@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
 				// Is it hash?
 				if (strlen(argv[1]) != 7) {
 					printf(">>> ERROR: Wrong hash!\n");
-					// createEntry();
+					createEntry(argv[1]);
 					return (-1);
 				} else {
 					if (argv[1][0] == '@') {
