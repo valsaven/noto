@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 // Create new DB file.
 void createNewDB() {
@@ -70,6 +71,35 @@ int showEntry(char *str) {
 	if (fp) {
 		fclose(fp);
 	}
+	return (0);
+}
+
+const char alphabet[] = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+char *generateHash() {
+	int len = 7;
+	char *hash = malloc((len + 1) * sizeof(char));
+	int i;
+
+	hash[0] = '@';
+
+	for (i = 1; i < len; i++) {
+		hash[i] = alphabet[rand() % (strlen(alphabet))];
+	}
+
+	hash[len] = '\0';
+
+	return hash;
+}
+
+// Create the entry.
+int createEntry(char *str) {
+	FILE *out = fopen("db", "a");
+	srand(time(NULL));
+	char *hash = generateHash();
+	fprintf(out, "%s %s\n", hash, str);
+	fclose(out);
+	printf(" > New entry has been added.\n");
 	return (0);
 }
 

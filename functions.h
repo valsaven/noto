@@ -4,6 +4,7 @@
 void createNewDB();
 void showAll();
 int showEntry(char *str);
+int createEntry(char *str);
 void removeEntry(char *id);
 
 #endif
