@@ -36,8 +36,8 @@ int main(int argc, char *argv[]) {
 			// noto -r @abcdef
 			if (strcmp(argv[1], "-r") == 0) { // Has -r flag
 				if (argv[2][0] == '@') {
-					printf(">>> Hash is %s\n", argv[2]);
 					// Search and remove the entry
+					removeEntry(argv[2]);
 				} else {
 					printf(">>> ERROR: Wrong arguments! (0x2)\n");
 					return (-1);
