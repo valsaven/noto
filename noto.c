@@ -18,16 +18,17 @@ int main(int argc, char *argv[]) {
 				exit(1);
 			} else {
 				// Is it hash?
-				if (strlen(argv[1]) != 7) {
-					printf(">>> ERROR: Wrong hash!\n");
-					createEntry(argv[1]);
+				if (argv[1][0] == '@' && strlen(argv[1]) != 7) {
+					printf(">>> ERROR: Wrong hash! (0x1)\n");
 					return (-1);
 				} else {
-					if (argv[1][0] == '@') {
+					if (argv[1][0] == '@'  && strlen(argv[1]) == 7) {
 						// Search and print the entry
 						showEntry(argv[1]);
-					} else {
-						printf(">>> No hash here...\n");
+						exit(1);
+					} else { // New entry
+						createEntry(argv[1]);
+						exit(1);
 					}
 				}
 			}
@@ -38,12 +39,12 @@ int main(int argc, char *argv[]) {
 					printf(">>> Hash is %s\n", argv[2]);
 					// Search and remove the entry
 				} else {
-					printf(">>> ERROR: Wrong arguments!\n");
+					printf(">>> ERROR: Wrong arguments! (0x2)\n");
 					return (-1);
 				}
 				return (0);
 			} else {
-				printf(">>> ERROR: Wrong arguments!\n");
+				printf(">>> ERROR: Wrong arguments! (0x3)\n");
 				return (-1);
 			}
 			break;

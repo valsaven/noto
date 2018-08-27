@@ -64,7 +64,7 @@ int showEntry(char *str) {
 	}
 
 	if (find_result == 0) {
-		printf("\nSorry, couldn't find a match.\n");
+		printf("\n>> An entry with this hash doesn't exist. <<\n");
 	}
 
 	// Close the file if still open.
