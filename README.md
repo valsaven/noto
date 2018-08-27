@@ -1,6 +1,10 @@
 # noto
 A command line journal 🌈
 
+<p align="left">
+  <img width="600" src="https://cdn.rawgit.com/valsaven/noto/cb2e8bae/noto.svg">
+</p>
+
 ```bash
 ### Make a new entry:
 noto "Hello, noto!"
