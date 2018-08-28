@@ -5,33 +5,37 @@
 #include <time.h>
 
 #define BUFFER_SIZE 1000
+#define CHUNK 1024 /* read 1024 bytes at a time */
 
-char* getPathToDB() {
-    char* home = getenv("HOME");
-    if (home == NULL) printf(">>> ERROR: Can't find HOME env!");
+char *getPathToDB() {
+	char *home = getenv("HOME");
+	if (home == NULL) printf(">>> ERROR: Can't find HOME env!");
 
-    char* path = "/db";
-    size_t len = strlen(home) + strlen(path) + 1;
-    char* fullpath = malloc(len);
-    if (fullpath == NULL) printf(">>> ERROR: Can't get full path!");
+	char *path = "/db";
+	size_t len = strlen(home) + strlen(path) + 1;
+	char *fullpath = malloc(len);
+	if (fullpath == NULL) printf(">>> ERROR: Can't get full path!");
 
-    strcpy(fullpath, home);
-    strcat(fullpath, path);
+	strcpy(fullpath, home);
+	strcat(fullpath, path);
 
-    return fullpath;
+	return fullpath;
 }
 
-// Create new DB file.
+/**
+ * Create new DB file.
+ */
 void createNewDB() {
-    FILE *fp;
+	FILE *fp;
 	fp = fopen(getPathToDB(), "w");
 	fclose(fp);
 	printf("The new DB file has been created.\n");
 }
 
-// Show all entries.
+/**
+ * Show all entries.
+ */
 void showAll() {
-	#define CHUNK 1024 /* read 1024 bytes at a time */
 	char buf[CHUNK];
 	FILE *file;
 	size_t nread;
@@ -58,7 +62,9 @@ void showAll() {
 	}
 }
 
-// Show the entry.
+/**
+ * Show the entry.
+ */
 int showEntry(char *str) {
 	FILE *fp;
 	int line_num = 1;
@@ -108,7 +114,9 @@ char *generateHash() {
 	return hash;
 }
 
-// Create the entry.
+/**
+ * Create the entry.
+ */
 int createEntry(char *str) {
 	FILE *out = fopen(getPathToDB(), "a");
 	srand(time(NULL));
@@ -119,22 +127,24 @@ int createEntry(char *str) {
 	return (0);
 }
 
-// Remove the entry.
+/**
+ * Remove the entry.
+ */
 int removeEntry(char *id) {
 	FILE *fp;
-    FILE *srcFile;
-    FILE *tempFile;
+	FILE *srcFile;
+	FILE *tempFile;
 
 	int line_num = 1;
 
 	char temp[512];
-    char *path = getPathToDB();
-    char *tempMask = ".tmp";
+	char *path = getPathToDB();
+	char *tempMask = ".tmp";
 
-    size_t len = strlen(path) + strlen(tempMask) + 1;
-    char* temp_path = malloc(len);
-    strcpy(temp_path, path);
-    strcat(temp_path, tempMask);
+	size_t len = strlen(path) + strlen(tempMask) + 1;
+	char *temp_path = malloc(len);
+	strcpy(temp_path, path);
+	strcat(temp_path, tempMask);
 
 	if ((fp = fopen(getPathToDB(), "r")) == NULL) {
 		printf(">>> ERROR: Can't open DB file! (0x4)\n");
@@ -143,35 +153,35 @@ int removeEntry(char *id) {
 
 	while (fgets(temp, 512, fp) != NULL) {
 		if ((strstr(temp, id)) != NULL) {
-            // Close the file if still open.
-            if (fp) fclose(fp);
+			// Close the file if still open.
+			if (fp) fclose(fp);
 
-            /* Try to open file */
-            srcFile  = fopen(path, "r");
-            tempFile = fopen(temp_path, "w");
+			/* Try to open file */
+			srcFile = fopen(path, "r");
+			tempFile = fopen(temp_path, "w");
 
-            /* Exit if file not opened successfully */
-            if (srcFile == NULL || tempFile == NULL) {
-                printf(">>> ERROR: Unable to open file! (0x5)\n");
-                exit(EXIT_FAILURE);
-            }
+			/* Exit if file not opened successfully */
+			if (srcFile == NULL || tempFile == NULL) {
+				printf(">>> ERROR: Unable to open file! (0x5)\n");
+				exit(EXIT_FAILURE);
+			}
 
-            // Move src file pointer to beginning
-            rewind(srcFile);
-            // Delete given line from file.
-            deleteLine(srcFile, tempFile, line_num);
+			// Move src file pointer to beginning
+			rewind(srcFile);
+			// Delete given line from file.
+			deleteLine(srcFile, tempFile, line_num);
 
-            /* Close all open files */
-            fclose(srcFile);
-            fclose(tempFile);
+			/* Close all open files */
+			fclose(srcFile);
+			fclose(tempFile);
 
-            /* Delete src file and rename temp file as src */
-            remove(path);
-            rename(temp_path, path);
+			/* Delete src file and rename temp file as src */
+			remove(path);
+			rename(temp_path, path);
 
 			printf("\n>> The %s entry has been removed.\n", id);
 
-            return (0);
+			return (0);
 		}
 
 		line_num++;
@@ -185,14 +195,14 @@ int removeEntry(char *id) {
 /**
  * Delete a given line from file.
  */
-void deleteLine(FILE *srcFile, FILE *tempFile, const int line) {
+void deleteLine(FILE *srcFile, FILE *tempFile, int line) {
 	char buffer[BUFFER_SIZE];
 	int count = 1;
 
 	while ((fgets(buffer, BUFFER_SIZE, srcFile)) != NULL) {
 		/* If current line is not the line user wanted to remove */
 		if (line != count) {
-            fputs(buffer, tempFile);
+			fputs(buffer, tempFile);
 		}
 		count++;
 	}

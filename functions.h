@@ -6,7 +6,7 @@ void createNewDB();
 void showAll();
 int showEntry(char *str);
 int createEntry(char *str);
-void deleteLine(FILE *srcFile, FILE *tempFile, const int line);
+void deleteLine(FILE *srcFile, FILE *tempFile, int line);
 int removeEntry(char *id);
 
 #endif
