@@ -4,9 +4,7 @@
 #include <string.h>
 
 int main(int argc, char *argv[]) {
-	int result, errno;
-
-	switch(argc) {
+	switch (argc) {
 		case 1:
 			// noto
 			showAll();
@@ -22,7 +20,7 @@ int main(int argc, char *argv[]) {
 					printf(">>> ERROR: Wrong hash! (0x1)\n");
 					return (-1);
 				} else {
-					if (argv[1][0] == '@'  && strlen(argv[1]) == 7) {
+					if (argv[1][0] == '@' && strlen(argv[1]) == 7) {
 						// Search and print the entry
 						showEntry(argv[1]);
 						exit(1);
@@ -47,12 +45,7 @@ int main(int argc, char *argv[]) {
 				printf(">>> ERROR: Wrong arguments! (0x3)\n");
 				return (-1);
 			}
-			break;
 		default :
 			exit(1);
 	}
-
-	system("clear");
-
-	return (0);
 }
