@@ -9,7 +9,17 @@
 
 char *getPathToDB() {
 	char *home = getenv("HOME");
-	if (home == NULL) printf(">>> ERROR: Can't find HOME env!");
+  	
+	if (home == NULL) { // If not linux
+		char path[512];
+
+		strcpy(path, getenv("HOMEDRIVE"));
+		strcat(path, getenv("HOMEPATH"));
+
+		home = path;
+
+		if (home == NULL) printf(">>> ERROR: Can't find HOME env!");
+	}
 
 	char *path = "/db";
 	size_t len = strlen(home) + strlen(path) + 1;
