@@ -2,7 +2,7 @@
 A command line journal 🌈
 
 <p align="left">
-  <img width="600" src="https://cdn.rawgit.com/valsaven/noto/cb2e8bae/noto.svg">
+  <img width="600" src="https://cdn.jsdelivr.net/gh/valsaven/noto@cb2e8bae/noto.svg">
 </p>
 
 ```bash
