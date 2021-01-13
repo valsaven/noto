@@ -1,4 +1,4 @@
 build:
 	@echo "[+] Building..."
-	@gcc -Wall noto.c functions.c -o noto
+	@gcc -Wall main.c functions.c -o noto
 	@echo "[+] Done!"
