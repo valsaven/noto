@@ -1,12 +1,13 @@
-#include "functions.h"
 #include <stdlib.h>
 #include <string.h>
+
+#include "headers/main.h"
 
 int main(int argc, char *argv[]) {
 	switch (argc) {
 		case 1:
 			// noto
-			showAll();
+			show_all();
 			exit(1);
 		case 2:
 			// noto -r  |  noto @abcdef  |  noto Helloooo
@@ -21,10 +22,10 @@ int main(int argc, char *argv[]) {
 				} else {
 					if (argv[1][0] == '@' && strlen(argv[1]) == 7) {
 						// Search and print the entry
-						showEntry(argv[1]);
+						show_entry(argv[1]);
 						exit(1);
 					} else { // New entry
-						createEntry(argv[1]);
+						create_entry(argv[1]);
 						exit(1);
 					}
 				}

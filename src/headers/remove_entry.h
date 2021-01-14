@@ -1,0 +1,1 @@
+int removeEntry(char *id);
