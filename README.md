@@ -5,6 +5,14 @@ A command line journal 🌈
   <img width="600" src="https://cdn.jsdelivr.net/gh/valsaven/noto@cb2e8bae/noto.svg">
 </p>
 
+### Install from AUR
+
+```bash
+yay -S noto
+```
+
+### Usage
+
 ```bash
 ### Make a new entry:
 noto "Hello, noto!"
@@ -21,4 +29,10 @@ Hello, noto!
 
 ### Remove an entry:
 noto -r @a9b1ah
+```
+
+### Build from source
+
+```bash
+cmake CMakeLists.txt && make
 ```

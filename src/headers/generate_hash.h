@@ -1,0 +1,1 @@
+char *generate_hash();
