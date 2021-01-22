@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "headers/get_path_to_db.h"
 
 char *get_path_to_db() {
     char *home = getenv("HOME");
@@ -18,11 +16,11 @@ char *get_path_to_db() {
 
     char *path = "/db";
     size_t len = strlen(home) + strlen(path) + 1;
-    char *fullpath = malloc(len);
-    if (fullpath == NULL) printf(">>> ERROR: Can't get full path!");
+    char *full_path = malloc(len);
+    if (full_path == NULL) printf(">>> ERROR: Can't get full path!");
 
-    strcpy(fullpath, home);
-    strcat(fullpath, path);
+    strcpy(full_path, home);
+    strcat(full_path, path);
 
-    return fullpath;
+    return full_path;
 }

@@ -1,5 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
+#include "headers/show_all.h"
 
 #include "headers/get_path_to_db.h"
 #include "headers/create_new_db.h"

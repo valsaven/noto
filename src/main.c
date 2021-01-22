@@ -1,6 +1,3 @@
-#include <stdlib.h>
-#include <string.h>
-
 #include "headers/main.h"
 
 int main(int argc, char *argv[]) {
@@ -35,7 +32,7 @@ int main(int argc, char *argv[]) {
 			if (strcmp(argv[1], "-r") == 0) { // Has -r flag
 				if (argv[2][0] == '@') {
 					// Search and remove the entry
-					removeEntry(argv[2]);
+                    remove_entry(argv[2]);
 				} else {
 					printf(">>> ERROR: Wrong arguments! (0x2)\n");
 					return (-1);

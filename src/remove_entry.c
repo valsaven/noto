@@ -1,6 +1,4 @@
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
+#include "headers/remove_entry.h"
 
 #include "headers/delete_line.h"
 #include "headers/get_path_to_db.h"
@@ -8,7 +6,7 @@
 /**
  * Remove the entry.
  */
-int removeEntry(char *id) {
+int remove_entry(char *id) {
     FILE *fp;
     FILE *srcFile;
     FILE *tempFile;

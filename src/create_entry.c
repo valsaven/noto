@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+#include "headers/create_entry.h"
 
 #include "headers/generate_hash.h"
 #include "headers/get_path_to_db.h"

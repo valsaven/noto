@@ -68,6 +68,7 @@ _deps
 CMakeUserPresets.json
 
 noto
+noto.cbp
 
 ### CMake Patch ###
 # External projects

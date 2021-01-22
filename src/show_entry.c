@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <string.h>
+#include "headers/show_entry.h"
 
 #include "headers/get_path_to_db.h"
 
