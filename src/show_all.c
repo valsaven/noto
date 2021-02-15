@@ -1,7 +1,4 @@
-#include "headers/show_all.h"
-
-#include "headers/get_path_to_db.h"
-#include "headers/create_new_db.h"
+#include "main.h"
 
 #define CHUNK 1024 /* read 1024 bytes at a time */
 

@@ -1,7 +1,4 @@
-#include "headers/create_entry.h"
-
-#include "headers/generate_hash.h"
-#include "headers/get_path_to_db.h"
+#include "main.h"
 
 /**
  * Create the entry.

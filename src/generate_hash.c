@@ -1,4 +1,4 @@
-#include "headers/generate_hash.h"
+#include "main.h"
 
 char *generate_hash() {
     const char alphabet[] = "abcdefghijklmnopqrstuvwxyz0123456789";

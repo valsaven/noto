@@ -1,7 +1,4 @@
-#include "headers/remove_entry.h"
-
-#include "headers/delete_line.h"
-#include "headers/get_path_to_db.h"
+#include "main.h"
 
 /**
  * Remove the entry.

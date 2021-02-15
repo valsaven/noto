@@ -1,5 +1,4 @@
-#include "headers/create_new_db.h"
-#include "headers/get_path_to_db.h"
+#include "main.h"
 
 /**
  * Create new DB file.
