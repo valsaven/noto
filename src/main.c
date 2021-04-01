@@ -1,6 +1,39 @@
 #include "main.h"
 
 int main(int argc, char *argv[]) {
+
+    // Если первый аргумент --help - выводим подсказку
+    // Если -r - запускается ф-я удаления записи, где проверяется наличие хэша
+    // Иначе всё до нажатия Enter - текст для записи
+    int count;
+    char* entryText;
+    char* firstWord = argv[1];
+
+    entryText = malloc(strlen(firstWord) + 4 * sizeof(char) + 1);
+
+//    char* name_with_extension;
+//    name_with_extension = malloc(strlen(name)+1+4); /* make space for the new string (should check the return value ...) */
+    strcpy(entryText, firstWord); /* copy name into the new var */
+
+//    strcpy(entryText, name); /* copy name into the new var */
+//    strcat(entryText, extension); /* add the extension */
+
+    for (count = 2; count < argc; count ++) {
+        printf("%d: %s\n", count, argv[count]);
+
+        entryText = malloc(strlen(firstWord) + strlen(argv[count]) + 4 * sizeof(char) + 1);
+
+        strcat(entryText, argv[count]);
+
+        free(entryText);
+    }
+
+    printf("\nfirstWord: %s\n", firstWord);
+    printf("\nentryText: %s\n", entryText);
+    printf("\n");
+
+//    printf("Общее кол-во аргументов: %d\n", count - 1);
+
 	switch (argc) {
 		case 1:
 			// noto
