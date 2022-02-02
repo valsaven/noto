@@ -12,8 +12,9 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
 
-    // noto -r  |  noto @abcdef  |  noto Helloooo
+    // noto -r  |  noto @abcdef  |  noto Hello | noto "Buy some coffee"
     if (argc == 2) {
+        // noto -r
         if (strcmp(argv[1], "-r") == 0) { // Has -r flag?
             printf("To delete an entry, specify its hash.\nExample:\nnoto -r @abcdef\n");
             exit(1);
@@ -23,10 +24,12 @@ int main(int argc, char *argv[]) {
         int is_hash_wrong = is_hash && strlen(argv[1]) != 7;
         int is_hash_correct = is_hash && strlen(argv[1]) != 7;
 
+        // noto @a
         if (is_hash_wrong) { // Show error
             show_error("hash", 1);
         }
 
+        // noto @abcdef
         if (is_hash_correct) { // Search and print the entry
             show_entry(argv[1]);
             exit(1);
