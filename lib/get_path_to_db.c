@@ -1,4 +1,4 @@
-#include "main.h"
+#include "noto.h"
 
 char *get_path_to_db() {
     char *home = getenv("HOME");

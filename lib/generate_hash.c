@@ -1,4 +1,4 @@
-#include "main.h"
+#include "noto.h"
 
 char *generate_hash() {
     const char alphabet[] = "abcdefghijklmnopqrstuvwxyz0123456789";

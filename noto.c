@@ -1,4 +1,4 @@
-#include "main.h"
+#include "lib/noto.h"
 
 int show_error(char wrong_field[], int code) {
     printf(">>> ERROR: Wrong %s! (0x%d)\n", wrong_field, code);
