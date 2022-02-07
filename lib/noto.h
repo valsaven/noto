@@ -22,4 +22,4 @@ void delete_line(FILE *srcFile, FILE *tempFile, int line);
 
 void show_all();
 
-#endif //NOTO_H
+#endif // NOTO_H
