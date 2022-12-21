@@ -1,6 +1,6 @@
-#include "noto.h"
+#include "noto_generate_hash.h"
 
-char *generate_hash() {
+char *noto_generate_hash() {
   const char alphabet[] = "abcdefghijklmnopqrstuvwxyz0123456789";
   int len = 7;
   char *hash = malloc((len + 1) * sizeof(char));

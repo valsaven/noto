@@ -1,9 +1,12 @@
-#include "noto.h"
+#include "noto_remove_entry.h"
+
+void noto_delete_line(FILE *srcFile, FILE *tempFile, int line);
+char *noto_get_path_to_db();
 
 /**
  * Remove the entry.
  */
-int remove_entry(char *id) {
+int noto_remove_entry(char *id) {
   FILE *fp;
   FILE *srcFile;
   FILE *tempFile;
@@ -11,7 +14,7 @@ int remove_entry(char *id) {
   int line_num = 1;
 
   char temp[512];
-  char *path = get_path_to_db();
+  char *path = noto_get_path_to_db();
   char *tempMask = ".tmp";
 
   size_t len = strlen(path) + strlen(tempMask) + 1;
@@ -19,7 +22,7 @@ int remove_entry(char *id) {
   strcpy(temp_path, path);
   strcat(temp_path, tempMask);
 
-  if ((fp = fopen(get_path_to_db(), "r")) == NULL) {
+  if ((fp = fopen(noto_get_path_to_db(), "r")) == NULL) {
     printf(">>> ERROR: Can't open DB file! (0x4)\n");
     return (-1);
   }
@@ -44,7 +47,7 @@ int remove_entry(char *id) {
       // Move src file pointer to beginning
       rewind(srcFile);
       // Delete given line from file.
-      delete_line(srcFile, tempFile, line_num);
+      noto_delete_line(srcFile, tempFile, line_num);
 
       /* Close all open files */
       fclose(srcFile);
