@@ -6,8 +6,14 @@ char *noto_db_get_path();
  * Create new DB file.
  */
 void noto_db_create() {
-  FILE *fp;
-  fp = fopen(noto_db_get_path(), "w");
+  FILE *fp = fopen(noto_db_get_path(), "w");
+
+  if (fp == NULL) {
+    perror("Error opening file");
+    fclose(fp);
+    return;
+  }
+
   fclose(fp);
-  printf("The new DB file has been created.\n");
+  printf("New DB file has been created.\n");
 }

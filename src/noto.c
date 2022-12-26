@@ -17,18 +17,18 @@ int main(int argc, char *argv[]) {
     exit(1);
   }
 
-  // noto -r  |  noto @abcdef  |  noto Hello | noto "Buy some coffee"
+  // noto -d  |  noto @abcdef  |  noto Hello | noto "Buy some coffee"
   if (argc == 2) {
-    // noto -r
-    if (strcmp(argv[1], "-r") == 0) { // Has -r flag?
+    // noto -d
+    if (strcmp(argv[1], "-d") == 0) { // Has -d flag?
       printf(
           "To delete an entry, specify its hash.\nExample:\nnoto -r @abcdef\n");
       exit(1);
     }
 
-    int is_hash = argv[1][0] == '@' && strlen(argv[1]) != 7;
+    int is_hash = argv[1][0] == '@';
     int is_hash_wrong = is_hash && strlen(argv[1]) != 7;
-    int is_hash_correct = is_hash && strlen(argv[1]) != 7;
+    int is_hash_correct = is_hash && strlen(argv[1]) == 7;
 
     // noto @a
     if (is_hash_wrong) { // Show error
@@ -46,9 +46,9 @@ int main(int argc, char *argv[]) {
     exit(1);
   }
 
-  // noto -r @abcdef
+  // noto -d @abcdef
   if (argc == 3) {
-    int has_r_flag = strcmp(argv[1], "-r") == 0;
+    int has_r_flag = strcmp(argv[1], "-d") == 0;
 
     if (has_r_flag) {
       if (argv[2][0] == '@') {

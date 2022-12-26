@@ -1,30 +1,50 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+#include <unistd.h>
+
 #include "noto_db_get_path.h"
 
 char *noto_db_get_path() {
-  char *home = getenv("HOME");
+  const char *home = getenv("HOME");
 
-  if (home == NULL) { // If not linux
-    char path[512];
-
-    strcpy(path, getenv("HOMEDRIVE"));
-    strcat(path, getenv("HOMEPATH"));
-
-    home = path;
+  if (home == NULL) {
+    home = getenv("HOMEDRIVE");
 
     if (home == NULL) {
-      printf(">>> ERROR: Can't find HOME env!");
+      fprintf(stderr, ">>> ERROR: Can't find HOME env!\n");
+      return NULL;
+    }
+
+    home = getenv("HOMEPATH");
+
+    if (home == NULL) {
+      fprintf(stderr, ">>> ERROR: Can't find HOME env!\n");
+      return NULL;
     }
   }
 
-  char *path = "/db";
-  size_t len = strlen(home) + strlen(path) + 1;
-  char *full_path = malloc(len);
-  if (full_path == NULL) {
-    printf(">>> ERROR: Can't get full path!");
+  const char *path = "/noto_db.txt";
+  long path_max = pathconf(path, _PC_PATH_MAX);
+
+  if (path_max == -1) {
+    path_max = 4096; // Default value
   }
 
-  strcpy(full_path, home);
-  strcat(full_path, path);
+  char *full_path = malloc(path_max);
+
+  if (full_path == NULL) {
+    fprintf(stderr, ">>> ERROR: Can't get full path!\n");
+    return NULL;
+  }
+
+  int result = snprintf(full_path, path_max, "%s%s", home, path);
+
+  if (result < 0) {
+    fprintf(stderr, ">>> ERROR: Can't create full path!\n");
+    free(full_path);
+    return NULL;
+  }
 
   return full_path;
 }

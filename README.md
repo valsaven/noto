@@ -14,7 +14,7 @@ yay -S noto
 ### Usage
 
 ```bash
-### Make a new entry:
+### Add new entry:
 noto "Hello, noto!"
 noto 123
 
@@ -23,12 +23,12 @@ noto
 @a9b1ah Hello, noto!
 @e7sa3b 123
 
-### Show the entry:
+### Show entry:
 noto @a9b1ah
 Hello, noto!
 
-### Remove an entry:
-noto -r @a9b1ah
+### Delete entry:
+noto -d @a9b1ah
 ```
 
 ### Build from source
