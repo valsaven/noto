@@ -1,19 +1,19 @@
-#include "noto_show_all.h"
+#include "noto_entry_show_all.h"
 
 #define CHUNK 1024 /* read 1024 bytes at a time */
 
-void noto_create_new_db();
-char *noto_get_path_to_db();
+void noto_db_create();
+char *noto_db_get_path();
 
 /**
  * Show all entries.
  */
-void noto_show_all() {
+void noto_entry_show_all() {
   char buf[CHUNK];
   FILE *file;
   size_t nread;
 
-  file = fopen(noto_get_path_to_db(), "r");
+  file = fopen(noto_db_get_path(), "r");
 
   if (file) {
     printf("\n----------------\n");
@@ -31,6 +31,6 @@ void noto_show_all() {
 
     fclose(file);
   } else { // Can't open file
-    noto_create_new_db();
+    noto_db_create();
   }
 }

@@ -1,18 +1,18 @@
-#include "noto_show_entry.h"
+#include "noto_entry_show.h"
 
-char *noto_get_path_to_db();
+char *noto_db_get_path();
 
 /**
  * Show the entry.
  */
-int noto_show_entry(char *str) {
+int noto_entry_show(char *str) {
   FILE *fp;
   int line_num = 1;
   int find_result = 0;
   char temp[512];
 
-  if ((fp = fopen(noto_get_path_to_db(), "r")) == NULL) {
-    fp = fopen(noto_get_path_to_db(), "w");
+  if ((fp = fopen(noto_db_get_path(), "r")) == NULL) {
+    fp = fopen(noto_db_get_path(), "w");
     fclose(fp);
     printf("The new DB file has been created.");
     return (0);

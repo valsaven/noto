@@ -1,6 +1,6 @@
-#include "noto_get_path_to_db.h"
+#include "noto_db_get_path.h"
 
-char *noto_get_path_to_db() {
+char *noto_db_get_path() {
   char *home = getenv("HOME");
 
   if (home == NULL) { // If not linux

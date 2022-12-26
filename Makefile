@@ -1,7 +1,7 @@
 CC = clang
 CFLAGS = -Iinclude -Wall -O2 -std=c17
 
-SRC_FILES = src/noto.c src/noto_create_entry.c src/noto_create_new_db.c src/noto_delete_line.c src/noto_generate_hash.c src/noto_get_path_to_db.c src/noto_remove_entry.c src/noto_show_all.c src/noto_show_entry.c
+SRC_FILES = $(wildcard src/*.c)
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
 all: noto

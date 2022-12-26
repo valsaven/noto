@@ -1,11 +1,11 @@
-#include "noto_delete_line.h"
+#include "noto_line_delete.h"
 
 #define BUFFER_SIZE 1000
 
 /**
  * Delete a given line from file.
  */
-void noto_delete_line(FILE *srcFile, FILE *tempFile, int line) {
+void noto_line_delete(FILE *srcFile, FILE *tempFile, int line) {
   char buffer[BUFFER_SIZE];
   int count = 1;
 
