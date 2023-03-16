@@ -3,6 +3,6 @@
 
 #include "noto.h"
 
-void noto_line_delete(FILE *srcFile, FILE *tempFile, int line);
+int noto_line_delete(FILE *srcFile, FILE *tempFile, int line);
 
 #endif /* NOTO_LINE_DELETE_H */

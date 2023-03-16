@@ -1,6 +1,6 @@
 #include "noto_entry_delete.h"
 
-void noto_line_delete(FILE *srcFile, FILE *tempFile, int line);
+int noto_line_delete(FILE *srcFile, FILE *tempFile, int line);
 char *noto_db_get_path();
 
 /**
@@ -19,20 +19,17 @@ int noto_entry_delete(char *id) {
 
   size_t len = strlen(path) + strlen(tempMask) + 1;
   char *temp_path = malloc(len);
-  strcpy(temp_path, path);
-  strcat(temp_path, tempMask);
+  snprintf(temp_path, len, "%s%s", path, tempMask);
 
   if ((fp = fopen(noto_db_get_path(), "r")) == NULL) {
     printf(">>> ERROR: Can't open DB file! (0x4)\n");
-    return (-1);
+    return -1;
   }
 
   while (fgets(temp, 512, fp) != NULL) {
     if ((strstr(temp, id)) != NULL) {
       // Close the file if still open.
-      if (fp) {
-        fclose(fp);
-      }
+      fclose(fp);
 
       /* Try to open file */
       srcFile = fopen(path, "r");
@@ -46,8 +43,13 @@ int noto_entry_delete(char *id) {
 
       // Move src file pointer to beginning
       rewind(srcFile);
+
       // Delete given line from file.
-      noto_line_delete(srcFile, tempFile, line_num);
+      int result = noto_line_delete(srcFile, tempFile, line_num);
+      if (result != 0) {
+        printf(">>> ERROR: Unable to delete line! (0x6)\n");
+        exit(EXIT_FAILURE);
+      }
 
       /* Close all open files */
       fclose(srcFile);
@@ -59,13 +61,14 @@ int noto_entry_delete(char *id) {
 
       printf("\n>> The %s entry has been removed.\n", id);
 
-      return (0);
+      return 0;
     }
 
     line_num++;
   }
 
+  fclose(fp);
   printf("\n>> An entry with this hash doesn't exist. <<\n");
 
-  return (0);
+  return 0;
 }

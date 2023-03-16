@@ -11,12 +11,9 @@ char *noto_db_get_path() {
   if (home == NULL) {
     home = getenv("HOMEDRIVE");
 
-    if (home == NULL) {
-      fprintf(stderr, ">>> ERROR: Can't find HOME env!\n");
-      return NULL;
+    if (home != NULL) {
+      home = getenv("HOMEPATH");
     }
-
-    home = getenv("HOMEPATH");
 
     if (home == NULL) {
       fprintf(stderr, ">>> ERROR: Can't find HOME env!\n");
@@ -40,7 +37,7 @@ char *noto_db_get_path() {
 
   int result = snprintf(full_path, path_max, "%s%s", home, path);
 
-  if (result < 0) {
+  if (result < 0 || result >= path_max) {
     fprintf(stderr, ">>> ERROR: Can't create full path!\n");
     free(full_path);
     return NULL;
