@@ -1,4 +1,4 @@
-#include "main.h"
+#include "delete.h"
 
 #define BUFFER_SIZE 1000
 

@@ -1,4 +1,6 @@
-#include "main.h"
+#include "show.h"
+#include "get.h"
+#include "create.h"
 
 /**
  * Show the entry.

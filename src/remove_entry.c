@@ -1,4 +1,6 @@
-#include "main.h"
+#include "remove.h"
+#include "get.h"
+#include "delete.h"
 
 /**
  * Remove the entry.
