@@ -1,68 +1,74 @@
-#include "remove.h"
-#include "get.h"
-#include "delete.h"
+#include "noto.h"
 
 /**
  * Remove the entry.
  */
 int remove_entry(char *id) {
-    FILE *fp;
-    FILE *srcFile;
-    FILE *tempFile;
+  const char *path = get_path_to_db();
+  const char *tempMask = ".tmp";
 
-    int line_num = 1;
+  const size_t len = strlen(path) + strlen(tempMask) + 1;
 
-    char temp[512];
-    char *path = get_path_to_db();
-    char *tempMask = ".tmp";
+  char *const temp_path = malloc(len);
+  if (!temp_path) {
+    perror("malloc");
+    return -1;
+  }
+  strcpy(temp_path, path);
+  strcat(temp_path, tempMask);
 
-    size_t len = strlen(path) + strlen(tempMask) + 1;
-    char *temp_path = malloc(len);
-    strcpy(temp_path, path);
-    strcat(temp_path, tempMask);
+  // Open DB and find line number
+  FILE *fp = fopen(path, "r");
+  if (!fp) {
+    free(temp_path);
+    printf(">>> ERROR: Can't open DB file! (0x4)\n");
+    return -1;
+  }
 
-    if ((fp = fopen(get_path_to_db(), "r")) == NULL) {
-        printf(">>> ERROR: Can't open DB file! (0x4)\n");
-        return (-1);
+  int line_num = 1;
+  char line[512];
+  int found = 0;
+
+  while (fgets(line, sizeof(line), fp)) {
+    if (strstr(line, id)) {
+      found = 1;
+      break;
     }
+    line_num++;
+  }
+  fclose(fp);
 
-    while (fgets(temp, 512, fp) != NULL) {
-        if ((strstr(temp, id)) != NULL) {
-            // Close the file if still open.
-            if (fp) fclose(fp);
+  if (!found) {
+    free(temp_path);
+    printf("\n>> An entry with this hash doesn't exist.\n");
+    return 0;
+  }
 
-            /* Try to open file */
-            srcFile = fopen(path, "r");
-            tempFile = fopen(temp_path, "w");
+  // Now actually delete the line
+  FILE *srcFile  = fopen(path, "r");
+  FILE *tempFile = fopen(temp_path, "w");
+  if (!srcFile || !tempFile) {
+    perror("fopen");
 
-            /* Exit if file not opened successfully */
-            if (srcFile == NULL || tempFile == NULL) {
-                printf(">>> ERROR: Unable to open file! (0x5)\n");
-                exit(EXIT_FAILURE);
-            }
+    fclose(srcFile);
+    fclose(tempFile);
+    free(temp_path);
 
-            // Move src file pointer to beginning
-            rewind(srcFile);
-            // Delete given line from file.
-            delete_line(srcFile, tempFile, line_num);
+    return -1;
+  }
 
-            /* Close all open files */
-            fclose(srcFile);
-            fclose(tempFile);
+  delete_line(srcFile, tempFile, line_num);
 
-            /* Delete src file and rename temp file as src */
-            remove(path);
-            rename(temp_path, path);
+  fclose(srcFile);
+  fclose(tempFile);
 
-            printf("\n>> The %s entry has been removed.\n", id);
+  if (remove(path) != 0 || rename(temp_path, path) != 0) {
+    perror("remove/rename");
+    free(temp_path);
+    return -1;
+  }
 
-            return (0);
-        }
-
-        line_num++;
-    }
-
-    printf("\n>> An entry with this hash doesn't exist. <<\n");
-
-    return (0);
+  free(temp_path);
+  printf("\n>> The %s entry has been removed.\n", id);
+  return 0;
 }
