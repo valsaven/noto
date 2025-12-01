@@ -1,5 +1,4 @@
 #include "noto.h"
-#include <time.h>
 
 /**
  * Create the entry.
