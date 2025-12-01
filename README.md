@@ -35,4 +35,7 @@ noto -r @a9b1ah
 
 ```bash
 cmake CMakeLists.txt && make
+
+meson setup build
+meson compile -C build
 ```

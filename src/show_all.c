@@ -1,6 +1,4 @@
-#include "show.h"
-#include "get.h"
-#include "create.h"
+#include "noto.h"
 
 #define CHUNK 1024 /* read 1024 bytes at a time */
 

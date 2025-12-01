@@ -1,6 +1,4 @@
-#include "show.h"
-#include "get.h"
-#include "create.h"
+#include "noto.h"
 
 /**
  * Show the entry.

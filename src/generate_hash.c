@@ -1,18 +1,22 @@
-#include "generate.h"
+#include "noto.h"
+#include <stdlib.h>
+#include <string.h>
 
-char *generate_hash() {
+char *generate_hash(void) {
     const char alphabet[] = "abcdefghijklmnopqrstuvwxyz0123456789";
-    int len = 7;
-    char *hash = malloc((len + 1) * sizeof(char));
-    int i;
+    const int len = 7;
+
+    char *hash = malloc(len + 2);
+    if (!hash) return NULL;
 
     hash[0] = '@';
 
-    for (i = 1; i < len; i++) {
-        hash[i] = alphabet[rand() % (strlen(alphabet))];
+    const size_t alph_len = strlen(alphabet);
+    for (int i = 1; i < len; i++) {
+        hash[i] = alphabet[(unsigned)rand() % alph_len];
     }
 
-    hash[len] = '\0';
+    hash[len + 1] = '\0';
 
     return hash;
 }
